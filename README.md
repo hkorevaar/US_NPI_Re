@@ -16,4 +16,4 @@ csv files contain county level data necessary to run "to_report.R"
 
 # to_report.R
 
-to_report.R contains the code for the comparison of Re and R0 estimates with county level data
+"to_report.R" contains the code for the comparison of Re and R0 estimates with county level data
