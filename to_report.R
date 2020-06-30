@@ -49,6 +49,9 @@ data_aggregator <- function(covid_data, lag_days = 21){
   Re_acts <- inner_join(covid_data, acts_iso, by = c('date', 'state'))
   Re_acts[is.na(Re_acts$level) & Re_acts$Date < '2020-02-26','level'] <- 0
   
+  county_popden$county_state[county_popden$county_state %in% c(' New York Kings County','New York New York County',
+                                                             'New York Bronx County','New York Queens County')] <- 'New York New York City County'
+  
   Re_acts <- left_join(Re_acts, county_popden, by='county_state')
 
   Re_acts$value[is.na(Re_acts$value)] <- 0
@@ -104,12 +107,11 @@ early_summary <- function(covid_acts, metros = TRUE, ndays = 5){
               hmax =  mean(R_e_median[level==3], na.rm = T) + 1.96*(sd(R_e_median[level==3], na.rm = T))/time_high,
               hmin =  mean(R_e_median[level==3], na.rm = T) - 1.96*(sd(R_e_median[level==3], na.rm = T))/time_high,
               pd = popden[1],
-              pd_rob = pop[1]/(land[1]/1e6),
+              pd_rob = pop[1]/(landarea[1]/1e6),
               rural = rural[1],
               urban = urban[1],
               pop=pop[1],
-              start = min(cal_time),
-              risk_prop = risk_prop[1])
+              start = min(cal_time))
   return(sub_sum)
   }
 
@@ -218,7 +220,7 @@ plot_grid(den_inset, pop_inset, labels = c('A','B'))
 #### continuous estimates of Re from Re_lag.R  
 load('county_Re.RData')
 
-Re_acts <- data_aggregator(Re.dat, lag_days = 0, post = TRUE)
+Re_acts <- data_aggregator(Re.dat, lag_days = 0)
 Re_acts$state[Re_acts$county == 'New York City'] <- 'New York City'
 
 ## drop outliers (generally single day spikes resulting from instability in estimates)
