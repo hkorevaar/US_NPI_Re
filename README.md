@@ -14,8 +14,6 @@ csv files contain county level data necessary to run "to_report.R"
 
 "Re_lag.R" provides code necessary to estimate Re using stochastic back-forecasting to reconstruct incidence data
 
-# to_report.R
-
 "to_report.R" contains the code for the comparison of Re and R0 estimates with county level data
 
 # state actions
