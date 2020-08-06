@@ -82,7 +82,8 @@ delay_dist <- function(death_data){
   df$Confirmed[is.na(df$Confirmed)] <- 0
   
   
-  ## inflate assuming CFR of 1.3%
+  ## inflate assuming CFR of .7%
+  ## results are pretty consistent across a range of values (.7-1.3%)
   df$Inferred <- df$Confirmed*130
   
   ## smooth for incidence
